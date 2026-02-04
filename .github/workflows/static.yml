@@ -38,6 +38,7 @@ jobs:
           mkdir site
           cp -r TASK_001 site/TASK_001
           cp -r TASK_002 site/TASK_002
+          cp -r TASK_003 site/TASK_003
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
