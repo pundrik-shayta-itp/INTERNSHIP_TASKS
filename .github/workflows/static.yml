@@ -36,8 +36,8 @@ jobs:
       - name: Prepare site
         run: |
           mkdir site
-          cp -r Task_001 site/Task_001
-          cp -r Task_002 site/Task_002
+          cp -r TASK_001 site/TASK_001
+          cp -r TASK_002 site/TASK_002
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
