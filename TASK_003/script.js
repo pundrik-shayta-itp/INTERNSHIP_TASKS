@@ -68,6 +68,9 @@ const option_1_element=document.getElementById("option-1");
 const option_2_element=document.getElementById("option-2");
 const option_3_element=document.getElementById("option-3");
 const option_4_element=document.getElementById("option-4");
+const option_collection=btns_element.children;
+
+
 
 const question_statuses=["Unanswered","Correct","Incorrect"];
 
@@ -86,63 +89,83 @@ start_btn_element.addEventListener("click",()=>{
         contestant_name=contestant_name_input_element.value;
         current_correct_answer=questions[0].answer;
         question_element.innerHTML=`Q.${current_question_index+1} : ${questions[current_question_index].question}`;
-        option_1_element.innerHTML=questions[current_question_index].options[0];
-        option_2_element.innerHTML=questions[current_question_index].options[1];
-        option_3_element.innerHTML=questions[current_question_index].options[2];
-        option_4_element.innerHTML=questions[current_question_index].options[3];  
-        contestant_name_element.innerHTML=`Contestant: ${contestant_name}`;
-        contestant_score_element.innerHTML=`Score : ${score}`;
-        question_status_element.innerHTML=`Status:  ${question_status_text}`;
+        option_1_element.innerHTML=`A. ${questions[current_question_index].options[0]}`;
+        option_2_element.innerHTML=`B. ${questions[current_question_index].options[1]}`;
+        option_3_element.innerHTML=`C. ${questions[current_question_index].options[2]}`;
+        option_4_element.innerHTML=`D. ${questions[current_question_index].options[3]}`;  
+        contestant_name_element.innerHTML=`${contestant_name}`;
+        contestant_score_element.innerHTML=`${score}`;
+        question_status_element.innerHTML=`${question_status_text}`;
         question_container_element.classList.remove("hidden");
         intro_element.classList.add("hidden");
         container_1_element.classList.add("hidden");
         contestant_details_element.classList.remove("hidden");
+        next_btn_element.classList.add("hidden");
     }else{
         alert("Please enter your name to start the quiz.");
     }
 
 })
-
+let previously_selected_btn=null;
 
 btns_element.addEventListener("click",function(e){
     if(e.target && e.target.classList.contains("btn-answer")){
+        if(previously_selected_btn){
+            previously_selected_btn.classList.remove("selected");
+        }
+        e.target.classList.add("selected");
+        previously_selected_btn=e.target;
         current_answer_choice=parseInt(e.target.value);
+
     }
 });
 
 confirm_btn_element.addEventListener("click",(e)=>{
-    if(current_answer_choice==-1){
-
+    if(current_answer_choice==current_correct_answer){
+        score+=1;
+        question_status_text=question_statuses[1];
+        contestant_score_element.innerHTML=`${score}`;
+        question_status_element.innerHTML=`${question_status_text}`;
+        question_status_element.style.color="rgb(63, 255, 63)";
+        option_collection[current_answer_choice].classList.add("correct");
     }else{
-        if(current_answer_choice==current_correct_answer){
-            score+=1;
-            question_status_text=question_statuses[1];
-            contestant_score_element.innerHTML=`Score : ${score}`;
-            question_status_element.innerHTML=`Status:  ${question_status_text}`;
-        }else{
-            question_status_text=question_statuses[2];
-            question_status_element.innerHTML=`Status:  ${question_status_text}`;
-        }
+        question_status_text=question_statuses[2];
+        question_status_element.innerHTML=`${question_status_text}`;
+        question_status_element.style.color="red";
+        option_collection[current_correct_answer].classList.add("correct");
+        option_collection[current_answer_choice].classList.add("incorrect");
     }
 
     confirm_btn_element.classList.add("hidden");
+    next_btn_element.classList.remove("hidden");
 })
 
 next_btn_element.addEventListener("click",(e)=>{
+    if(current_answer_choice!=-1){
+        option_collection[current_correct_answer].classList.remove("correct");
+        option_collection[current_answer_choice].classList.remove("incorrect");
+    }
+    option_collection[current_correct_answer].classList.remove("correct");
     current_answer_choice=-1;
     current_question_index+=1;
     if(current_question_index<questions.length){
         question_status_text=question_statuses[0];
-        contestant_name_element.innerHTML=`Contestant: ${contestant_name}`;
-        contestant_score_element.innerHTML=`Score : ${score}`;
-        question_status_element.innerHTML=`Status:  ${question_status_text}`;
+        contestant_name_element.innerHTML=`${contestant_name}`;
+        contestant_score_element.innerHTML=`${score}`;
+        question_status_element.innerHTML=`${question_status_text}`;
         question_element.innerHTML=`Q.${current_question_index+1} : ${questions[current_question_index].question}`;
-        option_1_element.innerHTML=questions[current_question_index].options[0];
-        option_2_element.innerHTML=questions[current_question_index].options[1];
-        option_3_element.innerHTML=questions[current_question_index].options[2];
-        option_4_element.innerHTML=questions[current_question_index].options[3]; 
+        option_1_element.innerHTML=`A. ${questions[current_question_index].options[0]}`;
+        option_2_element.innerHTML=`B. ${questions[current_question_index].options[1]}`;
+        option_3_element.innerHTML=`C. ${questions[current_question_index].options[2]}`;
+        option_4_element.innerHTML=`D. ${questions[current_question_index].options[3]}`; 
         current_correct_answer=questions[current_question_index].answer;
         confirm_btn_element.classList.remove("hidden");
+        next_btn_element.classList.add("hidden");
+        question_status_element.style.color="white";
+        if(previously_selected_btn){
+            previously_selected_btn.classList.remove("selected");
+            previously_selected_btn=null;
+        }
     }else{
         alert(`Quiz Completed! ${contestant_name} final score is ${score} out of ${questions.length}.`);
         location.reload();
