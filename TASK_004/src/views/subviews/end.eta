@@ -1,0 +1,9 @@
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+    let name=localStorage.getItem('contestant_name');
+    let score=localStorage.getItem('score');
+    localStorage.clear();
+    alert(`${name} scored ${score} in this quiz`);
+    window.location.href="/";
+})
+</script>

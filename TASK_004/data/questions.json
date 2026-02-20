@@ -1,0 +1,52 @@
+[
+    {
+        "question":"What is the time complexity of binary search algorithm in a sorted array?",
+        "options":["O(n)","O(log n)","O(n log n)","O(1)"],
+        "answer":1
+    },
+    {
+        "question":"What data structure you use to implement LRU cache?",
+        "options":["Array","Linked List","HashMap + Doubly Linked List","Stack"],
+        "answer":2
+    },
+    {
+        "question":"What is the time complexity of finding LCA in a Tree of q queries ?",
+        "options":["O(n)","O(log n)","O(n log n)","O(1)"],
+        "answer":2
+    },
+    {
+        "question":"Which algorithm is used to check whether an undirected graph able to visit each edge exactly once and return to starting point?",
+        "options":["Dijkstra's Algorithm","Eulerian Path Algorithm","Kruskal's Algorithm","Prim's Algorithm"],
+        "answer":1
+    },
+    {
+        "question":"What is the time complexity of inserting an element in a max-heap?",
+        "options":["O(n)","O(log n)","O(n log n)","O(1)"],
+        "answer":1
+    },
+    {
+        "question":"Which of the following sorting algorithms is not stable?",
+        "options":["Bubble Sort","Merge Sort","Quick Sort","Insertion Sort"],
+        "answer":2
+    },
+    {
+        "question":"What is the time complexity of finding the shortest path in a graph with negative weights but no negative cycles?",
+        "options":["O(V + E)","O(E log V)","O(V^2)","O(V^3)"],
+        "answer":0
+    },
+    {
+        "question":"Which data structure is used in breadth-first search (BFS) algorithm?",
+        "options":["Stack","Queue","Priority Queue","HashMap"],
+        "answer":1
+    },
+    {
+        "question":"What is the time complexity of accessing an element in a hash table?",
+        "options":["O(n)","O(log n)","O(1)","O(n log n)"],
+        "answer":2
+    },
+    {
+        "question":"What is the worst-case time complexity of accessing an element in a hash table?",
+        "options":["O(1)","O(n)","O(log n)","O(n log n)"],
+        "answer":1
+    }
+]

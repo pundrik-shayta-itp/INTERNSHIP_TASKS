@@ -1,0 +1,86 @@
+<header>
+    <section class="contestant-details ">
+        <div class="detail">Contestant: <div class="contestant-name"></div></div>
+        <div class="detail">Score: <div class="contestant-score"></div></div>
+        <div class="detail">Status: <div class="question-status">
+        </div></div>
+    </section>
+</header>
+<main>
+    <section class="question-container">
+        <h2 class="question"><%=it.question%></h2>
+        <div class="answer-buttons">
+            <button class="btn-answer" id="option-1" value="0"><%=it.options[0]%></button>
+            <button class="btn-answer" id="option-2" value="1"><%=it.options[1]%></button>
+            <button class="btn-answer" id="option-3" value="2"><%=it.options[2]%></button>
+            <button class="btn-answer" id="option-4" value="3"><%=it.options[3]%></button>
+        </div>
+        <div class="question-nav">
+            <button class="btn-confirm">Confirm</button>
+            <button class="btn-next">Next</button>
+        </div>
+    </section>
+</main>
+
+
+<script>
+    const answer=<%=it.answer%>;
+    let question_index=<%=it.question_index%>;
+  document.addEventListener("DOMContentLoaded", () => {
+    let name=localStorage.getItem('contestant_name');
+    let score=localStorage.getItem('score');
+    let status=localStorage.getItem('question_status_text');
+    let contestant_name_element=document.querySelector('.contestant-name');
+    let score_element=document.querySelector('.contestant-score');
+    let question_status_element=document.querySelector('.question-status');
+    const btns_element=document.querySelector(".answer-buttons");
+    const option_collection=btns_element.children;
+    const confirm_btn_element=document.querySelector(".btn-confirm");
+    const next_btn_element=document.querySelector(".btn-next");
+    
+    let previously_selected_btn=null;
+    let current_answer_choice=-1;
+
+    contestant_name_element.innerHTML=name;
+    score_element.innerHTML=score;
+    question_status_element.innerHTML=status;
+
+    btns_element.addEventListener("click",function(e){
+    if(e.target && e.target.classList.contains("btn-answer")){
+        if(previously_selected_btn){
+            previously_selected_btn.classList.remove("selected");
+        }
+        e.target.classList.add("selected");
+        previously_selected_btn=e.target;
+        current_answer_choice=parseInt(e.target.value);
+        console.log(current_answer_choice);
+        }
+    });
+    confirm_btn_element.addEventListener("click",()=>{
+        console.log("Clicked");
+        if(current_answer_choice==answer){
+            score+=1;
+            status="Correct";
+            score_element.innerHTML=`${score}`;
+            question_status_element.innerHTML=`${status}`;
+            question_status_element.style.color="rgb(63, 255, 63)";
+            option_collection[current_answer_choice].classList.add("correct");
+        }else{
+            status="Incorrect";
+            question_status_element.innerHTML=`${status}`;
+            question_status_element.style.color="red";
+            option_collection[answer].classList.add("correct");
+            if(current_answer_choice!=-1)option_collection[current_answer_choice].classList.add("incorrect");
+        }
+        localStorage.setItem('score',score);
+        confirm_btn_element.classList.add("hidden");
+    })
+
+    next_btn_element.addEventListener('click',()=>{
+        if(question_index<9)    window.location.href="/question";
+        else window.location.href="/end";
+    })
+  })
+
+
+</script>

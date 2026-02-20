@@ -1,0 +1,30 @@
+<header>
+    <section class="intro">
+        <h2>Hello!!! Welcome to Pundrik's Interactive Quiz App.</h2>
+        <p>This quiz contains 10 questions on Data Structures and Algorithms.The time is 10 minutes. To proceed to next question you have to answer each questoin and confirm your answer.After that only you will get button to move to the next question.</p>
+        <input type="text" id="input-name" placeholder="Contestant Please Enter Your Name" required>
+    </section>
+</header>
+
+<main>
+    <div class="container-1"> 
+        <h2>Click Start Button To Start The Quiz.</h2>
+        <button id="btn-start">Start Quiz</button>
+    </div>
+</main>
+
+<script>
+        let start_button_element=document.querySelector('#btn-start');
+        let input_name_element=document.querySelector('#input-name');
+        start_button_element.addEventListener('click',()=>{
+            contestant_name=input_name_element.value;
+            if(contestant_name!=""){
+                localStorage.setItem('contestant_name',contestant_name);
+                localStorage.setItem('score',0);
+                localStorage.setItem('question_status_text',"Unanswered");
+                window.location.href="/question";
+            }else{
+                alert("Please Enter contestant name");
+            }
+        })
+    </script>
